@@ -1,5 +1,4 @@
 import { Geist, Geist_Mono } from "next/font/google";
-import { type ReactNode } from "react";
 import AppProviders from "@/components/providers/app-providers";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
@@ -20,7 +19,11 @@ export const metadata = {
   description: "AI-powered learning platform",
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body
