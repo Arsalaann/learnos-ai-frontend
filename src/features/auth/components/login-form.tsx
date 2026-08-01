@@ -3,6 +3,7 @@
 import { LoaderCircle } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,6 +18,7 @@ import { useLogin } from "../hooks/use-login";
 import { loginSchema, type LoginFormValues } from "../schemas/auth";
 
 export default function LoginForm() {
+  const router = useRouter();
   const { close } = useAuthModal();
   const loginMutation = useLogin();
 

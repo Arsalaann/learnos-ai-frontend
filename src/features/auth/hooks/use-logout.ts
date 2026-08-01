@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 
-import { useAuth } from "../context/auth-context";
+import { useAuth } from "@/features/auth/hooks/use-auth";
 
 export function useLogout() {
   const router = useRouter();

@@ -1,7 +1,7 @@
+import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import AppProviders from "@/components/providers/app-providers";
-import Header from "@/components/layout/header";
-import Footer from "@/components/layout/footer";
+
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "LearnOS AI",
   description: "AI-powered learning platform",
 };
@@ -27,14 +27,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} bg-background text-foreground antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} bg-background text-foreground antialiased overflow-x-hidden`}
       >
         <AppProviders>
-          <div className="flex min-h-screen flex-col">
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </div>
+          <main className="relative min-h-screen flex-1">{children}</main>
         </AppProviders>
       </body>
     </html>

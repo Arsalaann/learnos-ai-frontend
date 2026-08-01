@@ -1,10 +1,12 @@
-export default function Home() {
-  return (
-    <div className="mx-auto max-w-7xl px-6 py-10">
-      <h1 className="text-4xl font-bold">LearnOS AI</h1>
-      <p className="mt-4 text-muted-foreground">
-        Production AI learning platform.
-      </p>
-    </div>
-  );
+"use client";
+
+import GuestHomePage from "@/components/guest/home-page";
+import WorkspaceHome from "@/features/workspaces/components/workspace-home";
+
+import { useAuth } from "@/features/auth/hooks/use-auth";
+
+export default function HomePage() {
+  const { isAuthenticated } = useAuth();
+
+  return isAuthenticated ? <WorkspaceHome /> : <GuestHomePage />;
 }

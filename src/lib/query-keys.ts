@@ -3,15 +3,36 @@ export const queryKeys = {
     user: () => ["auth", "user"] as const,
   },
 
-  documents: {
-    all: () => ["documents"] as const,
-    detail: (documentId: number) => ["documents", documentId] as const,
+  workspaces: {
+    all: () => ["workspaces"] as const,
+
+    detail: (workspaceId: number) => ["workspaces", workspaceId] as const,
   },
 
-  chats: {
-    all: () => ["chats"] as const,
-    detail: (chatId: number) => ["chats", chatId] as const,
-    messages: (chatId: number) => ["chats", chatId, "messages"] as const,
+  documents: {
+    all: (workspaceId: number) =>
+      ["workspaces", workspaceId, "documents"] as const,
+
+    detail: (workspaceId: number, documentId: number) =>
+      ["workspaces", workspaceId, "documents", documentId] as const,
+  },
+
+  messages: {
+    all: (conversationId: number) =>
+      ["conversations", conversationId, "messages"] as const,
+  },
+
+  documentArtifacts: {
+    summary: (workspaceId: number, documentId: number) =>
+      ["workspaces", workspaceId, "documents", documentId, "summary"] as const,
+  },
+
+  conversations: {
+    all: (workspaceId: number) =>
+      ["workspaces", workspaceId, "conversations"] as const,
+
+    detail: (workspaceId: number, conversationId: number) =>
+      ["workspaces", workspaceId, "conversations", conversationId] as const,
   },
 
   settings: {

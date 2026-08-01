@@ -2,7 +2,10 @@
 
 import ThemeProvider from "./theme-provider";
 import QueryProvider from "./query-provider";
+import AppInitializer from "./app-initializer";
+
 import AuthProvider from "@/features/auth/context/auth-context";
+import UserProvider from "@/features/user/context/user-context";
 
 export default function AppProviders({
   children,
@@ -12,7 +15,11 @@ export default function AppProviders({
   return (
     <ThemeProvider>
       <QueryProvider>
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <UserProvider>
+            <AppInitializer>{children}</AppInitializer>
+          </UserProvider>
+        </AuthProvider>
       </QueryProvider>
     </ThemeProvider>
   );
