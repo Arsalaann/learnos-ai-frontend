@@ -1,5 +1,4 @@
-import Sidebar from "@/components/layout/sidebar";
-import WorkspaceSidebarContent from "@/features/workspaces/components/workspace-sidebar";
+import WorkspaceSidebar from "@/features/workspaces/components/workspace-sidebar";
 
 export default function WorkspaceLayout({
   children,
@@ -7,14 +6,8 @@ export default function WorkspaceLayout({
   children: React.ReactNode;
 }) {
   return (
-    // 1. Parent takes full screen height and prevents body scroll
     <div className="flex h-screen overflow-hidden">
-      {/* 2. Sidebar stays static (no overflow, no scroll) */}
-      <Sidebar>
-        <WorkspaceSidebarContent />
-      </Sidebar>
-
-      {/* 3. Main area takes remaining space and handles scrolling */}
+      <WorkspaceSidebar />
       <main className="flex-1 overflow-y-auto">{children}</main>
     </div>
   );

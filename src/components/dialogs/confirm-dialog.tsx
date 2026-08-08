@@ -37,20 +37,39 @@ export default function ConfirmDialog({
 }: ConfirmDialogProps) {
   return (
     <Dialog open={open} onOpenChange={(isOpen) => onOpenChange(isOpen)}>
-      <DialogContent>
+      <DialogContent className="rounded-none">
         <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
+          <p className="mb-4 font-mono text-[0.625rem] uppercase tracking-[0.25em] text-destructive">
+            Confirmation required
+          </p>
 
-          <DialogDescription>{description}</DialogDescription>
+          <DialogTitle className="text-2xl font-semibold tracking-[-0.02em]">
+            {title}
+          </DialogTitle>
+
+          <DialogDescription className="mt-3 max-w-sm text-sm leading-6 text-muted-foreground">
+            {description}
+          </DialogDescription>
         </DialogHeader>
 
         <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
+          <Button
+            type="button"
+            variant="ghost"
+            onClick={() => onOpenChange(false)}
+            className="h-9 shrink-0 rounded-none"
+          >
             Cancel
           </Button>
 
-          <Button variant="destructive" disabled={loading} onClick={onConfirm}>
-            {loading && <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />}
+          <Button
+            type="button"
+            variant="destructive"
+            disabled={loading}
+            onClick={onConfirm}
+            className="h-9 shrink-0 rounded-none"
+          >
+            {loading && <LoaderCircle className="mr-2 size-4 animate-spin" />}
 
             {actionLabel}
           </Button>

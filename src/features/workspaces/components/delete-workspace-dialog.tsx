@@ -19,10 +19,8 @@ export default function DeleteWorkspaceDialog({
   return (
     <>
       <Button
-        variant="outline"
-        className={
-          "absolute right-6 top-1/2 -translate-y-1/2 text-ring hover:text-ring"
-        }
+        variant="secondary"
+        className={"absolute right-4 bottom-4 text-ring hover:text-ring"}
         onClick={() => setOpen(true)}
       >
         <Trash />

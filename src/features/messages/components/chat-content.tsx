@@ -1,11 +1,12 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
 import { useMessages } from "../hooks/use-messages";
-import { MessageSquarePlus, Sparkles } from "lucide-react"; // Ensure you have lucide-react installed
+import { MessageSquarePlus, Sparkles } from "lucide-react";
 
+import { useChat } from "./chat-context";
 import MessageList from "./message-list";
 import MessageListSkeleton from "./message-list-skeleton";
+import MessageItem from "./message-item";
 
 interface ChatContentProps {
   conversationId: number | null;
@@ -13,8 +14,8 @@ interface ChatContentProps {
 
 export default function ChatContent({ conversationId }: ChatContentProps) {
   const { data: messages, isPending } = useMessages(conversationId);
+  const { isStreaming, streamingContent } = useChat();
 
-  // Empty State: No conversation selected or no messages
   if (conversationId === null || !messages?.length) {
     return (
       <div className="flex h-full w-full flex-1 flex-col items-center justify-center bg-background px-4 text-center">
@@ -34,7 +35,7 @@ export default function ChatContent({ conversationId }: ChatContentProps) {
           </div>
         </div>
 
-        {/* Optional: Quick Start Prompts (Remove if not needed) */}
+        {/* Optional: Quick Start Prompts (Remove if not needed)
         <div className="grid w-full max-w-lg grid-cols-1 gap-3 sm:grid-cols-2">
           <Button
             variant="outline"
@@ -50,7 +51,7 @@ export default function ChatContent({ conversationId }: ChatContentProps) {
             <Sparkles className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-primary" />
             <span>Summarize context</span>
           </Button>
-        </div>
+        </div> */}
       </div>
     );
   }
@@ -60,8 +61,11 @@ export default function ChatContent({ conversationId }: ChatContentProps) {
   }
 
   return (
-    <div className="w-full flex-1 py-12">
-      <MessageList messages={messages} />
+    <div className="w-full flex-1 pt-12 pb-8">
+      <MessageList
+        messages={messages}
+        streamingContent={isStreaming ? streamingContent : ""}
+      />
     </div>
   );
 }

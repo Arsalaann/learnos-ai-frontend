@@ -53,18 +53,25 @@ export default function UploadDocumentDialog() {
     <Dialog open={open} onOpenChange={(isOpen) => setOpen(isOpen)}>
       <DialogTrigger
         render={(props) => (
-          <Button {...props} size="icon" variant="ghost">
-            <Plus className="h-4 w-4" />
+          <Button {...props} size="icon" variant="ghost" className="rounded-sm">
+            <Plus className="size-4" />
+            <span className="sr-only">Upload document</span>
           </Button>
         )}
       />
 
-      <DialogContent>
+      <DialogContent className="rounded-none">
         <DialogHeader>
-          <DialogTitle>Upload Document</DialogTitle>
+          <p className="mb-4 font-mono text-[0.625rem] uppercase tracking-[0.25em] text-primary">
+            Add to your desk
+          </p>
 
-          <DialogDescription>
-            Upload a PDF to begin chatting with it.
+          <DialogTitle className="text-2xl font-semibold tracking-[-0.02em]">
+            Upload a document
+          </DialogTitle>
+
+          <DialogDescription className="mt-3 max-w-sm text-sm leading-6 text-muted-foreground">
+            Bring a PDF into this workspace and start exploring it with AI.
           </DialogDescription>
         </DialogHeader>
 

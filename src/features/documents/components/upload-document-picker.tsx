@@ -45,7 +45,7 @@ export default function UploadDocumentPicker({
         <Button
           type="button"
           variant="outline"
-          className="w-full"
+          className="w-full rounded-none h-10"
           onClick={openFilePicker}
           disabled={disabled}
         >
@@ -53,7 +53,7 @@ export default function UploadDocumentPicker({
         </Button>
       ) : (
         <div className="space-y-4">
-          <div className="rounded-lg border bg-muted/40 p-4">
+          <div className="rounded-none border bg-muted/40 p-4">
             <p className="truncate font-medium">{value.name}</p>
 
             <p className="text-sm text-muted-foreground">
@@ -64,7 +64,7 @@ export default function UploadDocumentPicker({
           <Button
             type="button"
             variant="outline"
-            className="w-full"
+            className="w-full rounded-none h-10"
             onClick={openFilePicker}
             disabled={disabled}
           >

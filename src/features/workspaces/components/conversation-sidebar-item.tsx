@@ -43,7 +43,9 @@ export default function ConversationSidebarItem({
     <div
       className={cn(
         " flex space-between items-center rounded-md pl-3 py-1 text-sm transition-colors whitespace-nowrap truncate",
-        isActive ? "bg-muted font-medium" : "hover:bg-muted/60",
+        isActive
+          ? "bg-muted-foreground/15 font-medium"
+          : "hover:bg-muted-foreground/10",
       )}
     >
       <div className="min-w-0 flex-1">

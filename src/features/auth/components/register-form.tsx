@@ -45,6 +45,7 @@ export default function RegisterForm() {
           id="fullName"
           placeholder="John Doe"
           autoComplete="name"
+          className="h-12"
           {...form.register("fullName")}
         />
 
@@ -59,6 +60,7 @@ export default function RegisterForm() {
           type="email"
           placeholder="john@example.com"
           autoComplete="email"
+          className="h-12"
           {...form.register("email")}
         />
 
@@ -72,6 +74,7 @@ export default function RegisterForm() {
           id="password"
           placeholder="Create a password"
           autoComplete="new-password"
+          className="h-12"
           {...form.register("password")}
         />
 
@@ -80,7 +83,7 @@ export default function RegisterForm() {
 
       <Button
         type="submit"
-        className="w-full"
+        className="w-full h-12 rounded-none"
         disabled={registerMutation.isPending}
       >
         {registerMutation.isPending && (

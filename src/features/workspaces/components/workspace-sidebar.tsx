@@ -1,5 +1,5 @@
 "use client";
-
+import Header from "@/components/layout/header";
 import NewChatButton from "@/features/conversations/components/new-chat-button";
 import WorkspaceConversationList from "@/features/conversations/components/workspace-conversation-list";
 
@@ -8,13 +8,16 @@ import { useWorkspace } from "../hooks/use-workspace";
 
 import WorkspaceDocumentList from "./workspace-document-list";
 
-export default function WorkspaceSidebarContent() {
+export default function WorkspaceSidebar() {
   const workspaceId = useWorkspaceId();
   const { data: workspace } = useWorkspace(workspaceId);
 
   return (
-    <div className="flex flex-col gap-6">
-      <h1 className="truncate text-base font-semibold">{workspace?.title}</h1>
+    <div className="flex flex-col flex-1 gap-6 overflow-y-auto p-4 pt-0 max-w-90 bg-background-default">
+      <Header />
+      <h1 className="truncate text-base border-b pb-3 font-semibold">
+        {workspace?.title}
+      </h1>
 
       <section className="space-y-3">
         <NewChatButton />

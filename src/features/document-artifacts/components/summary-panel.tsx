@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import type { DocumentArtifact } from "../types/document-artifact";
 import { LoaderCircle } from "lucide-react";
+import AssistantMessage from "@/features/messages/components/assistant-message";
 
 interface SummaryPanelProps {
   artifact: DocumentArtifact;
@@ -29,7 +30,7 @@ export default function SummaryPanel({
       </div>
 
       <div className="whitespace-pre-wrap w-full flex-1 pb-20">
-        {artifact.content}
+        <AssistantMessage content={artifact.content}></AssistantMessage>
       </div>
     </div>
   );

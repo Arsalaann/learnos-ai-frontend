@@ -1,14 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-
 import LoginForm from "./login-form";
 import RegisterForm from "./register-form";
 
@@ -16,65 +7,66 @@ import { AuthModalProvider } from "../context/auth-modal-context";
 import type { AuthMode } from "../hooks/use-auth-modal-controller";
 
 interface AuthModalProps {
-  open: boolean;
   mode: AuthMode;
-  onOpenChange: (open: boolean) => void;
   onModeChange: (mode: AuthMode) => void;
-  onClose: () => void;
 }
 
-export default function AuthModal({
-  open,
-  mode,
-  onOpenChange,
-  onModeChange,
-  onClose,
-}: AuthModalProps) {
+export default function AuthModal({ mode, onModeChange }: AuthModalProps) {
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <AuthModalProvider
-        value={{
-          mode,
-          switchMode: onModeChange,
-          close: onClose,
-        }}
-      >
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>
-              {mode === "login" ? "Welcome Back" : "Create your account"}
-            </DialogTitle>
+    <AuthModalProvider
+      value={{
+        mode,
+        switchMode: onModeChange,
+        close: () => {},
+      }}
+    >
+      <div className="w-full max-w-md ">
+        {mode === "login" ? (
+          <>
+            <div className="mb-10">
+              <p className="mb-4 font-mono text-md uppercase tracking-[0.3em] text-primary">
+                Welcome back
+              </p>
 
-            <DialogDescription>
-              {mode === "login"
-                ? "Sign in to continue using LearnOS AI."
-                : "Create an account to start learning with AI."}
-            </DialogDescription>
-
-            <div className="mt-4 flex rounded-lg bg-muted p-1">
-              <Button
-                type="button"
-                variant={mode === "login" ? "default" : "ghost"}
-                className="flex-1"
-                onClick={() => onModeChange("login")}
-              >
-                Login
-              </Button>
-
-              <Button
-                type="button"
-                variant={mode === "register" ? "default" : "ghost"}
-                className="flex-1"
-                onClick={() => onModeChange("register")}
-              >
-                Sign Up
-              </Button>
+              <h2 className="text-5xl font-medium leading-none tracking-[-0.03em] sm:text-5xl">
+                Return to your work.
+              </h2>
             </div>
-          </DialogHeader>
 
-          {mode === "login" ? <LoginForm /> : <RegisterForm />}
-        </DialogContent>
-      </AuthModalProvider>
-    </Dialog>
+            <LoginForm />
+
+            <button
+              type="button"
+              onClick={() => onModeChange("register")}
+              className="mt-5 text-sm text-primary underline underline-offset-4 transition-opacity hover:opacity-70"
+            >
+              New here? Create an account
+            </button>
+          </>
+        ) : (
+          <>
+            <div className="mb-10">
+              <p className="mb-4 font-mono text-md uppercase tracking-[0.3em] text-primary">
+                Begin your desk
+              </p>
+
+              <h2 className="text-5xl font-medium leading-none tracking-[-0.03em] sm:text-5xl">
+                Make room to learn.
+              </h2>
+            </div>
+
+            <RegisterForm />
+
+            <button
+              type="button"
+              onClick={() => onModeChange("login")}
+              className="mt-5 text-sm text-primary underline underline-offset-4 transition-opacity hover:opacity-70"
+            >
+              Already have an account? Return to your desk
+            </button>
+          </>
+        )}
+      </div>
+    </AuthModalProvider>
   );
 }

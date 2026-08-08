@@ -40,7 +40,7 @@ export default function WorkspaceConversationList() {
   }
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-[0.1rem]">
       {workspaceConversations.map((conversation) => (
         <ConversationSidebarItem
           key={conversation.id}

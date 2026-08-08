@@ -46,6 +46,7 @@ export default function LoginForm() {
           type="email"
           placeholder="john@example.com"
           autoComplete="email"
+          className="h-12"
           {...form.register("email")}
         />
 
@@ -59,6 +60,7 @@ export default function LoginForm() {
           id="password"
           placeholder="Enter your password"
           autoComplete="current-password"
+          className="h-12"
           {...form.register("password")}
         />
 
@@ -67,13 +69,13 @@ export default function LoginForm() {
 
       <Button
         type="submit"
-        className="w-full"
+        className="w-full h-12 rounded-none"
         disabled={loginMutation.isPending}
       >
         {loginMutation.isPending && (
           <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
         )}
-        Sign In
+        Enter the desk
       </Button>
 
       {loginMutation.isError && (

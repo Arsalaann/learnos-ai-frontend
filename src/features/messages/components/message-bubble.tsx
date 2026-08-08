@@ -12,8 +12,10 @@ export default function MessageBubble({
   return (
     <div
       className={cn(
-        "rounded-2xl px-4 py-3 whitespace-pre-wrap wrap-break-word",
-        isUser ? "bg-muted text-foreground" : "bg-transparent text-foreground",
+        "rounded-md whitespace-pre-wrap wrap-break-word",
+        isUser
+          ? "bg-interactive/10 text-foreground py-3 px-3 my-6"
+          : "bg-transparent text-foreground",
       )}
     >
       {children}

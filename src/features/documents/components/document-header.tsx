@@ -21,10 +21,8 @@ export default function DocumentHeader() {
 
   if (isPending) {
     return (
-      <header className="sticky top-16 z-30 bg-background/10 backdrop-blur-md">
-        <div className="px-8 py-6">Loading...</div>
-
-        <Separator />
+      <header className="sticky top-0 w-full bg-background/10 backdrop-blur-md z-30 px-8 py-2">
+        Loading...
       </header>
     );
   }
@@ -34,10 +32,8 @@ export default function DocumentHeader() {
   }
 
   return (
-    <header className="sticky top-0 w-full bg-background/10 backdrop-blur-md  z-30">
-      <div className="px-8">
-        <DocumentTabs />
-      </div>
+    <header className="sticky top-0 w-full bg-background/10 backdrop-blur-md px-8 z-30">
+      <DocumentTabs />
     </header>
   );
 }

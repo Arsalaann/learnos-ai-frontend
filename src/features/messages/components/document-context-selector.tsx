@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, LoaderCircle } from "lucide-react";
+import { Check, LoaderCircle, File } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -34,12 +34,11 @@ export default function DocumentContextSelector() {
           <Button
             {...props}
             type="button"
-            variant="outline"
-            size="sm"
-            className="h-8"
+            variant="secondary"
+            className="h-12 w-12 rounded-full"
             press={false}
           >
-            Included context
+            <File size={38} />
           </Button>
         )}
       />

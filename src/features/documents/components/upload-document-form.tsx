@@ -23,7 +23,7 @@ export default function UploadDocumentForm({
     useUploadDocumentController(onSuccess);
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="mt-8 space-y-6">
+    <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 space-y-6">
       <Controller
         control={form.control}
         name="file"
@@ -40,7 +40,7 @@ export default function UploadDocumentForm({
 
       <Button
         type="submit"
-        className="w-full"
+        className="w-full rounded-none h-10"
         disabled={uploadMutation.isPending}
       >
         {uploadMutation.isPending && (
