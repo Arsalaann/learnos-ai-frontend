@@ -11,6 +11,7 @@ function mapWorkspace(workspace: WorkspaceResponse): Workspace {
   return {
     id: workspace.id,
     title: workspace.title,
+    isDefault: workspace.is_default,
     documentsCount: workspace.documents_count,
     createdAt: workspace.created_at,
     updatedAt: workspace.updated_at,

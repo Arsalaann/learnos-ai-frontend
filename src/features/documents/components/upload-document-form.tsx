@@ -23,28 +23,35 @@ export default function UploadDocumentForm({
     useUploadDocumentController(onSuccess);
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 space-y-6">
-      <Controller
-        control={form.control}
-        name="file"
-        render={({ field }) => (
-          <UploadDocumentPicker
-            value={field.value ?? null}
-            onChange={field.onChange}
-            disabled={uploadMutation.isPending}
-          />
-        )}
-      />
+    <form
+      onSubmit={form.handleSubmit(onSubmit)}
+      className="mt-4 w-full min-w-0 max-w-full space-y-6 overflow-hidden"
+    >
+      <div className="w-full min-w-0 max-w-full overflow-hidden">
+        <Controller
+          control={form.control}
+          name="file"
+          render={({ field }) => (
+            <div className="w-full min-w-0 max-w-full overflow-hidden">
+              <UploadDocumentPicker
+                value={field.value ?? null}
+                onChange={field.onChange}
+                disabled={uploadMutation.isPending}
+              />
+            </div>
+          )}
+        />
+      </div>
 
       <Message error={form.formState.errors.file} />
 
       <Button
         type="submit"
-        className="w-full rounded-none h-10"
+        className="h-10 w-full rounded-none"
         disabled={uploadMutation.isPending}
       >
         {uploadMutation.isPending && (
-          <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
+          <LoaderCircle className="mr-2 size-4 animate-spin" />
         )}
         Upload Document
       </Button>

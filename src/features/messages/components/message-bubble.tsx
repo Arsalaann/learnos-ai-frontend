@@ -14,8 +14,8 @@ export default function MessageBubble({
       className={cn(
         "rounded-none whitespace-pre-wrap wrap-break-word",
         isUser
-          ? "bg-primary text-white py-3 px-3 my-6"
-          : "bg-transparent text-foreground",
+          ? "bg-primary text-white py-1 px-3 my-4 max-w-xl"
+          : "w-full bg-transparent text-foreground",
       )}
     >
       {children}

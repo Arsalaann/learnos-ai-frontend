@@ -60,7 +60,7 @@ export default function DocumentContextSelector() {
               No documents yet.
             </p>
           ) : (
-            <div className="max-h-64 space-y-1 overflow-y-auto">
+            <div className="max-h-64 space-y-1 overflow-y-auto scrollbar-thin">
               {documents.map((document) => {
                 const isUpdating = updatingIds.has(document.id);
                 const isIncluded = document.includeInWorkspaceContext;

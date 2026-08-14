@@ -4,7 +4,7 @@ import type { Workspace } from "../types/workspace";
 
 export default function WorkspaceCard({ workspace }: { workspace: Workspace }) {
   return (
-    <article className="relative flex min-h-35 flex-col gap-3 overflow-hidden bg-primary/5 p-6 transition-colors border hover:border-primary/40">
+    <article className="relative flex min-h-30 flex-col gap-3 overflow-hidden bg-primary/5 p-4 transition-colors border hover:border-primary/40">
       <div className="flex items-center justify-between ">
         <div className="grid h-10 w-10 place-items-center rounded-none bg-primary/10 text-primary">
           <BookOpen className="h-5 w-5" strokeWidth={1.7} />

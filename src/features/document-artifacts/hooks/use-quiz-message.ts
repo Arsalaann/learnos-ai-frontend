@@ -2,27 +2,30 @@
 
 import { useState } from "react";
 
-import type { Message } from "@/features/messages/types/message";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
+
+import type { DocumentArtifact } from "../types/document-artifact";
 
 import { useAnswerQuizQuestion } from "./use-answer-quiz-question";
 import { parseQuiz } from "../lib/quiz-parser";
 
-export function useQuizMessage(message: Message) {
+interface UseQuizMessageProps {
+  quiz: DocumentArtifact;
+  conversationId: number;
+}
+
+export function useQuizMessage({
+  quiz: artifact,
+  conversationId,
+}: UseQuizMessageProps) {
   const workspaceId = useWorkspaceId();
   const answerQuizQuestionMutation = useAnswerQuizQuestion();
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
-  const artifact = message.artifact;
-
-  if (!artifact) {
-    return null;
-  }
-
-  const quiz = parseQuiz(artifact.content);
-  const totalQuestions = quiz.questions.length;
-  const currentQuestion = quiz.questions[currentQuestionIndex];
+  const parsedQuiz = parseQuiz(artifact.content);
+  const totalQuestions = parsedQuiz.questions.length;
+  const currentQuestion = parsedQuiz.questions[currentQuestionIndex];
 
   if (!currentQuestion) {
     return null;
@@ -45,8 +48,6 @@ export function useQuizMessage(message: Message) {
   const hasNextQuestion = currentQuestionIndex < totalQuestions - 1;
 
   function handleAnswer(optionIndex: number) {
-    if (!artifact) return;
-
     if (artifact.questionAttempts[String(currentQuestionIndex)] !== undefined) {
       return;
     }
@@ -61,7 +62,7 @@ export function useQuizMessage(message: Message) {
       artifactId: artifact.id,
       questionIndex: currentQuestionIndex,
       selectedOptionIndex: optionIndex,
-      conversationId: message.conversationId,
+      conversationId,
     });
   }
 

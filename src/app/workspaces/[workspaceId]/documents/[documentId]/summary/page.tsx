@@ -1,14 +1,11 @@
-import SummaryContainer from "@/features/document-artifacts/components/summary-container";
 import DocumentHeader from "@/features/documents/components/document-header";
+import SummaryHome from "@/features/document-artifacts/components/summary-home";
 
 export default function SummaryPage() {
   return (
-    <div className="flex flex-1 flex-col">
+    <div className="flex flex-1 flex-col h-screen gap-6">
       <DocumentHeader />
-
-      <main className="flex flex-1 flex-col items-start ml-4 max-w-3xl">
-        <SummaryContainer />
-      </main>
+      <SummaryHome />
     </div>
   );
 }

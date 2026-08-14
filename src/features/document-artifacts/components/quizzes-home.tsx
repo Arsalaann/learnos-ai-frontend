@@ -3,21 +3,15 @@
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { useDocumentId } from "@/features/documents/hooks/use-document-id";
 
-import { useQuizzes } from "../hooks/use-quizzes";
+import { useQuizzes } from "@/features/document-artifacts/hooks/use-quizzes";
 
-import QuizzesList from "./quizzes-list";
+import QuizzesList from "@/features/document-artifacts/components/quizzes-list";
 
-export default function QuizzesContainer() {
+export default function QuizzesHome() {
   const workspaceId = useWorkspaceId();
   const documentId = useDocumentId();
 
-  if (!documentId) {
-    return (
-      <div className="flex w-full flex-1 items-center justify-center">
-        <p className="text-muted-foreground">No document selected.</p>
-      </div>
-    );
-  }
+  if (!documentId) return null;
 
   const {
     data: quizzes,

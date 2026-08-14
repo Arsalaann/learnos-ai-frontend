@@ -21,3 +21,37 @@ export interface DocumentArtifactResponse {
   created_at: string;
   updated_at: string;
 }
+
+export interface DocumentInsightsResponse {
+  summary: DocumentArtifactResponse;
+  topics: DocumentArtifactResponse;
+}
+
+export interface DocumentInsights {
+  summary: DocumentArtifact;
+  topics: DocumentArtifact;
+}
+
+export interface InsightsGenerationResponse {
+  status: "generating" | "ready";
+}
+
+export interface Topic {
+  name: string;
+  subtopics: string[];
+}
+
+export interface TopicsResponse {
+  topics: Topic[];
+}
+
+export interface QuizQuestion {
+  question: string;
+  options: string[];
+  correctOptionIndex: number;
+  explanation: string;
+}
+
+export interface QuizResponse {
+  questions: QuizQuestion[];
+}

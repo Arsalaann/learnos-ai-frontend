@@ -15,6 +15,10 @@ function mapDocument(document: DocumentResponse): Document {
     originalFilename: document.original_filename,
     contentType: document.content_type,
     fileSize: document.file_size,
+    status: document.status,
+    stage: document.stage,
+    progress: document.progress,
+    processingError: document.processing_error,
     includeInWorkspaceContext: document.include_in_workspace_context,
     createdAt: document.created_at,
     updatedAt: document.updated_at,
@@ -40,6 +44,17 @@ export async function uploadDocument({
   const response = await apiClient.post<DocumentResponse>(
     `${documentRoutes.workspace(workspaceId)}/documents`,
     formData,
+  );
+
+  return mapDocument(response.data);
+}
+
+export async function reprocessDocument(
+  workspaceId: number,
+  documentId: number,
+): Promise<Document> {
+  const response = await apiClient.post<DocumentResponse>(
+    documentRoutes.reprocess(workspaceId, documentId),
   );
 
   return mapDocument(response.data);

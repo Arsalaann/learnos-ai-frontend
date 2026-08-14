@@ -13,51 +13,56 @@ export default function CreateWorkspaceCard() {
     useCreateWorkspaceController();
 
   return (
-    <section className="flex min-h-50 flex-col justify-around border border-dashed border-border px-6 transition-colors bg-primary/5 hover:border-primary/40 hover:bg-muted/20">
-      <div>
-        <h3 className="flex items-center gap-3 text-xl font-semibold tracking-tight">
-          <div className="grid h-10 w-10 place-items-center bg-primary/10 text-primary">
-            <Plus className="h-5 w-5" strokeWidth={1.8} />
-          </div>{" "}
-          Create a workspace
-        </h3>
+    <section>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mb-8">
+          <p className="font-mono text-[0.625rem] uppercase tracking-[0.25em] text-primary">
+            New workspace
+          </p>
 
-        <p className="mt-2 max-w-xs text-sm leading-6 text-muted-foreground">
-          Start a new place for documents, conversations, and focused learning.
-        </p>
+          <h1 className="mt-2 text-3xl font-semibold tracking-tight">
+            Create a workspace
+          </h1>
+
+          <p className="mt-2 text-sm text-muted-foreground">
+            Create a separate space for a subject, project, or collection of
+            documents.
+          </p>
+
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="flex min-w-0 flex-1 gap-2 sm:max-w-md mt-3"
+          >
+            <div className="min-w-0 flex-1">
+              <Input
+                placeholder="Workspace name"
+                className="h-9 bg-background-default"
+                {...form.register("title")}
+              />
+
+              <Message error={form.formState.errors.title} />
+            </div>
+
+            <Button
+              type="submit"
+              size="sm"
+              className="h-9 rounded-none"
+              disabled={createWorkspaceMutation.isPending}
+            >
+              {createWorkspaceMutation.isPending && (
+                <LoaderCircle className="mr-2 size-4 animate-spin" />
+              )}
+              Create
+            </Button>
+          </form>
+        </div>
       </div>
 
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="flex gap-2 items-center">
-          <div className="min-w-0 flex-1">
-            <Input
-              placeholder="Workspace name"
-              className="h-10 bg-background-default dark:bg-background-default"
-              {...form.register("title")}
-            />
-
-            <Message error={form.formState.errors.title} />
-          </div>
-
-          <Button
-            type="submit"
-            size="lg"
-            className="rounded-none"
-            disabled={createWorkspaceMutation.isPending}
-          >
-            {createWorkspaceMutation.isPending && (
-              <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
-            )}
-            Create
-          </Button>
-        </div>
-
-        {createWorkspaceMutation.isError && (
-          <p className="mt-3 text-xs text-destructive">
-            Failed to create workspace. Please try again.
-          </p>
-        )}
-      </form>
+      {createWorkspaceMutation.isError && (
+        <p className="mt-2 text-xs text-destructive">
+          Failed to create workspace. Please try again.
+        </p>
+      )}
     </section>
   );
 }

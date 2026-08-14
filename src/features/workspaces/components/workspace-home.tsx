@@ -10,40 +10,21 @@ import DeleteWorkspaceDialog from "./delete-workspace-dialog";
 import WorkspaceCard from "./workspace-card";
 
 export default function WorkspaceHome() {
-  const { data: workspaces = [], isPending, isError } = useWorkspaces();
+  const { data: allworkspaces = [], isPending, isError } = useWorkspaces();
+
+  const workspaces = allworkspaces.filter((workspace) => !workspace.isDefault);
 
   return (
     <PageContainer>
-      <div className="mx-auto w-full">
-        {/* Hero */}
-        <section className="flex justify-center gap-6 border-b border-border pb-6 items-center">
-          <div>
-            <p className="mb-5 font-mono text-[0.625rem] uppercase tracking-[0.3em] text-primary">
-              The study desk
-            </p>
+      <div className="mx-auto w-full py-8">
+        <CreateWorkspaceCard />
 
-            <h1 className="text-5xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-6xl lg:text-7xl">
-              Make room to learn.
-            </h1>
-
-            <p className="mt-6 max-w-xl text-sm leading-7 text-muted-foreground sm:text-base">
-              Bring your documents together, explore ideas with AI, and keep
-              everything you're learning in one quiet place.
-            </p>
+        <section className="mt-4">
+          <div className="mb-4 flex items-center justify-between border-b pb-3">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              Your workspaces ({workspaces.length})
+            </h2>
           </div>
-
-          <div className="w-full flex-1">
-            <CreateWorkspaceCard />
-          </div>
-        </section>
-
-        {/* Workspace section */}
-        <section className="pt-8">
-          <h2 className="mb-6 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-            Your workspaces {"("}
-            {workspaces?.length}
-            {")"}
-          </h2>
 
           {isPending ? (
             <WorkspaceGridSkeleton />
@@ -52,31 +33,22 @@ export default function WorkspaceHome() {
               <p className="text-sm text-destructive">
                 We couldn't load your workspaces.
               </p>
+
               <p className="mt-1 text-xs text-muted-foreground">
                 Please try again in a moment.
               </p>
             </div>
           ) : workspaces.length === 0 ? (
-            <div className="grid gap-4 lg:grid-cols-2">
-              <div className="flex min-h-72 flex-col justify-between border border-dashed border-border p-8">
-                <div>
-                  <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary">
-                    Start somewhere
-                  </p>
+            <div className="border border-dashed border-border px-6 py-12 text-center">
+              <p className="text-sm font-medium">No additional workspaces</p>
 
-                  <h3 className="mt-4 max-w-sm text-2xl font-semibold tracking-tight">
-                    Give your learning a place to live.
-                  </h3>
-                </div>
-
-                <p className="max-w-sm text-sm leading-6 text-muted-foreground">
-                  Create a workspace for a subject, project, course, or
-                  collection of documents. You can always create more later.
-                </p>
-              </div>
+              <p className="mx-auto mt-2 max-w-sm text-xs leading-5 text-muted-foreground">
+                Create one above when you want to separate another subject or
+                project.
+              </p>
             </div>
           ) : (
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
               {workspaces.map((workspace) => (
                 <div key={workspace.id} className="group relative">
                   <Link href={`/workspaces/${workspace.id}`} className="block">

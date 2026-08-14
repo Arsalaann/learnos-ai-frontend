@@ -42,13 +42,13 @@ export default function ConversationSidebarItem({
   return (
     <div
       className={cn(
-        " flex space-between items-center rounded-none pl-3 text-sm transition-colors whitespace-nowrap truncate",
+        "flex items-center space-between rounded-none pl-3 text-sm transition-colors whitespace-nowrap truncate",
         isActive
           ? "bg-muted-foreground/15 font-medium"
           : "hover:bg-muted-foreground/10",
       )}
     >
-      <div className="min-w-0 flex-1 py-4">
+      <div className="min-w-0 flex-1 py-2.5">
         {isEditing ? (
           <input
             ref={inputRef}
@@ -74,7 +74,7 @@ export default function ConversationSidebarItem({
             href={conversationRoutes.detail(workspaceId, conversation.id)}
             className="truncate text-sm font-medium"
           >
-            <div className="w-full ">{conversation.title}</div>
+            <div className="w-full max-w-65 truncate">{conversation.title}</div>
           </Link>
         )}
       </div>

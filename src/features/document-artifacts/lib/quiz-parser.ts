@@ -1,4 +1,4 @@
-import type { QuizQuestion, QuizResponse } from "../types/quiz";
+import type { QuizQuestion, QuizResponse } from "../types/document-artifact";
 
 interface QuizQuestionResponse {
   question: string;

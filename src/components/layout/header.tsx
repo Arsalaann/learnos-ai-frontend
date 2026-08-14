@@ -3,6 +3,7 @@
 import { BookOpen, LogOut } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
@@ -19,7 +20,13 @@ import { useUser } from "@/features/user/hooks/use-user";
 
 import ConfirmDialog from "../dialogs/confirm-dialog";
 
-export default function Header() {
+interface HeaderProps {
+  homeHref?: string;
+}
+
+export default function Header({ homeHref = "/" }: HeaderProps) {
+  const pathname = usePathname();
+  const isHome = pathname === homeHref;
   const { isAuthenticated } = useAuth();
   const { user } = useUser();
   const { logout } = useLogoutController();
@@ -28,19 +35,31 @@ export default function Header() {
 
   return (
     <header>
-      <div className="mx-auto flex w-full max-w-8xl items-center justify-between py-4">
-        <Link
-          href="/"
-          className="flex items-center gap-3 transition-opacity hover:opacity-70"
-        >
-          <div className="grid size-9 place-items-center bg-primary text-white">
-            <BookOpen className="size-4" />
-          </div>
+      <div className="mx-auto flex w-full max-w-8xl items-center justify-between pt-4">
+        {isHome ? (
+          <div className="flex items-center gap-3">
+            <div className="grid size-9 place-items-center bg-primary text-white">
+              <BookOpen className="size-4" />
+            </div>
 
-          <span className="text-sm font-semibold tracking-tight">
-            LearnOS AI
-          </span>
-        </Link>
+            <span className="text-sm font-semibold tracking-tight">
+              LearnOS AI
+            </span>
+          </div>
+        ) : (
+          <Link
+            href={homeHref}
+            className="flex items-center gap-3 transition-opacity hover:opacity-70"
+          >
+            <div className="grid size-9 place-items-center bg-primary text-white">
+              <BookOpen className="size-4" />
+            </div>
+
+            <span className="text-sm font-semibold tracking-tight">
+              LearnOS AI
+            </span>
+          </Link>
+        )}
 
         {isAuthenticated && (
           <>

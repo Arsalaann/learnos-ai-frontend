@@ -5,6 +5,9 @@ import { documentArtifactRoutes } from "../lib/document-artifact-routes";
 import type {
   DocumentArtifact,
   DocumentArtifactResponse,
+  DocumentInsights,
+  DocumentInsightsResponse,
+  InsightsGenerationResponse,
 } from "../types/document-artifact";
 
 import type { MessageResponse } from "@/features/messages/types/message";
@@ -25,26 +28,29 @@ function mapDocumentArtifact(
   };
 }
 
-export async function getSummary(
+export async function getInsights(
   workspaceId: number,
   documentId: number,
-): Promise<DocumentArtifact> {
-  const response = await apiClient.get<DocumentArtifactResponse>(
-    documentArtifactRoutes.summary(workspaceId, documentId),
+): Promise<DocumentInsights> {
+  const response = await apiClient.get<DocumentInsightsResponse>(
+    documentArtifactRoutes.insights(workspaceId, documentId),
   );
 
-  return mapDocumentArtifact(response.data);
+  return {
+    summary: mapDocumentArtifact(response.data.summary),
+    topics: mapDocumentArtifact(response.data.topics),
+  };
 }
 
-export async function generateSummary(
+export async function generateInsights(
   workspaceId: number,
   documentId: number,
-): Promise<DocumentArtifact> {
-  const response = await apiClient.post<DocumentArtifactResponse>(
-    documentArtifactRoutes.summary(workspaceId, documentId),
+): Promise<InsightsGenerationResponse> {
+  const response = await apiClient.post<InsightsGenerationResponse>(
+    documentArtifactRoutes.insights(workspaceId, documentId),
   );
 
-  return mapDocumentArtifact(response.data);
+  return response.data;
 }
 
 export async function getConversationSummaries(

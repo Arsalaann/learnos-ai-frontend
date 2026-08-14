@@ -16,7 +16,7 @@ interface QuizMessageProps {
 export default function QuizMessage({ message }: QuizMessageProps) {
   const quiz = useQuizMessage(message);
 
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(true);
 
   if (!quiz) {
     return null;

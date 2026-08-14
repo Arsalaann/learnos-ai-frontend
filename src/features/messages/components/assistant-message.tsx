@@ -6,6 +6,9 @@ import remarkGfm from "remark-gfm";
 import { Button } from "@/components/ui/button";
 import ShikiHighlighter from "react-shiki";
 import { useTheme } from "next-themes";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css";
 
 interface AssistantMessageProps {
   content: string;
@@ -15,7 +18,8 @@ export default function AssistantMessage({ content }: AssistantMessageProps) {
   return (
     <div className="prose prose-slate dark:prose-invert max-w-none text-foreground my-0 py-0">
       <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
+        remarkPlugins={[remarkGfm, remarkMath]}
+        rehypePlugins={[rehypeKatex]}
         components={{
           // --- Headings: Tight tracking, bold weights, generous top spacing ---
           h1: ({ children }) => (
@@ -29,29 +33,29 @@ export default function AssistantMessage({ content }: AssistantMessageProps) {
             </h2>
           ),
           h3: ({ children }) => (
-            <h3 className=" mt-5 mb-2 text-xl font-semibold tracking-tight text-foreground/95">
+            <h3 className=" mt-3 mb-2 text-xl font-semibold tracking-tight text-foreground/95">
               {children}
             </h3>
           ),
           h4: ({ children }) => (
-            <h4 className="mt-5 text-lg font-semibold tracking-tight text-foreground/80">
+            <h4 className="mt-3 text-lg font-semibold tracking-tight text-foreground/80">
               {children}
             </h4>
           ),
 
           // --- Paragraphs: Relaxed line height for readability ---
           p: ({ children }) => (
-            <p className="leading-7 text-foreground/80 last:mb-0">{children}</p>
+            <p className="leading-6 text-foreground/80 last:mb-0">{children}</p>
           ),
 
           // --- Lists: Better indentation and marker spacing ---
           ul: ({ children }) => (
-            <ul className="ml-4 list-disc marker:text-muted-foreground/50 flex flex-col gap-3">
+            <ul className="ml-4 list-disc marker:text-muted-foreground/50 flex flex-col gap-1">
               {children}
             </ul>
           ),
           ol: ({ children }) => (
-            <ol className="ml-4 list-decimal marker:font-medium marker:text-muted-foreground/50 flex flex-col gap-3">
+            <ol className="ml-4 list-decimal marker:font-medium marker:text-muted-foreground/50 flex flex-col gap-1">
               {children}
             </ol>
           ),
@@ -91,27 +95,27 @@ export default function AssistantMessage({ content }: AssistantMessageProps) {
 
           // --- Tables: Premium card-like style with hover effects ---
           table: ({ children }) => (
-            <div className="my-2 overflow-hidden rounded-lg border border-border shadow-sm">
+            <div className="my-2 overflow-hidden border border-border shadow-sm">
               <table className="w-full text-sm">{children}</table>
             </div>
           ),
           thead: ({ children }) => (
-            <thead className="bg-muted/50 text-xs uppercase text-muted-foreground">
+            <thead className="bg-muted/50 text-xs uppercase text-foreground">
               {children}
             </thead>
           ),
           th: ({ children }) => (
-            <th className="border-b border-border px-5 py-3 text-left font-semibold">
+            <th className="border-b-2 border-border px-5 py-3 text-left font-semibold">
               {children}
             </th>
           ),
           td: ({ children }) => (
-            <td className="border-b border-border/50 px-5 py-3 align-top text-muted-foreground/90 last:border-b-0">
+            <td className="px-5 py-3 align-top text-muted-foreground/90 last:border-b-0">
               {children}
             </td>
           ),
           tr: ({ children }) => (
-            <tr className="transition-colors hover:bg-muted/30 last:border-b-0">
+            <tr className="border-b border-border/50  bg-background-default transition-colors last:border-b-0">
               {children}
             </tr>
           ),

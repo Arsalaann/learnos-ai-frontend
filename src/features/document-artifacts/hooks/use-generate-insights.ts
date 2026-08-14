@@ -1,10 +1,12 @@
+"use client";
+
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { queryKeys } from "@/lib/query-keys";
 
-import { generateSummary } from "../api/document-artifact-api";
+import { generateInsights } from "../api/document-artifact-api";
 
-export function useGenerateSummary() {
+export function useGenerateInsights() {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -14,15 +16,18 @@ export function useGenerateSummary() {
     }: {
       workspaceId: number;
       documentId: number;
-    }) => generateSummary(workspaceId, documentId),
+    }) => generateInsights(workspaceId, documentId),
 
-    onSuccess(summary, variables) {
+    onSuccess(response, variables) {
       queryClient.setQueryData(
-        queryKeys.documentArtifacts.summary(
+        queryKeys.documentArtifacts.insightsStatus(
           variables.workspaceId,
           variables.documentId,
         ),
-        summary,
+        {
+          status: response.status,
+          error: null,
+        },
       );
     },
   });

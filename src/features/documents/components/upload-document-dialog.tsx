@@ -8,26 +8,22 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
-import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
-
-import { documentRoutes } from "../lib/document-routes";
 
 import type { Document } from "../types/document";
 
 import UploadDocumentForm from "./upload-document-form";
 
 export default function UploadDocumentDialog() {
-  const workspaceId = useWorkspaceId();
   const router = useRouter();
 
   const searchParams = useSearchParams();
   const pathname = usePathname();
+
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (searchParams.get("upload") !== "true") {
@@ -35,18 +31,11 @@ export default function UploadDocumentDialog() {
     }
 
     setOpen(true);
-
     router.replace(pathname);
   }, [pathname, router, searchParams]);
 
-  const [open, setOpen] = useState(false);
-
   function handleSuccess(document: Document) {
     setOpen(false);
-
-    requestAnimationFrame(() => {
-      router.push(documentRoutes.chat(workspaceId, document.id));
-    });
   }
 
   return (
@@ -69,10 +58,6 @@ export default function UploadDocumentDialog() {
           <DialogTitle className="text-2xl font-semibold tracking-[-0.02em]">
             Upload a document
           </DialogTitle>
-
-          <DialogDescription className="mt-3 max-w-sm text-sm leading-6 text-muted-foreground">
-            Bring a PDF into this workspace and start exploring it with AI.
-          </DialogDescription>
         </DialogHeader>
 
         <UploadDocumentForm onSuccess={handleSuccess} />

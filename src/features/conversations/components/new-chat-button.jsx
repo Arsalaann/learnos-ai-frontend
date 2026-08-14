@@ -17,7 +17,7 @@ export default function NewChatButton() {
 
   return (
     <Button
-      className="h-12 justify-start w-full rounded-full text-interactive bg-interactive/10 hover:bg-interactive/15 hover:text-interactive dark:hover:bg-interactive/15 dark:hover:text-interactive"
+      className="h-12 mb-4 justify-start w-full rounded-full text-interactive bg-interactive/10 hover:bg-interactive/15 hover:text-interactive dark:hover:bg-interactive/15 dark:hover:text-interactive"
       variant="ghost"
       onClick={() => router.push(draftPath)}
     >

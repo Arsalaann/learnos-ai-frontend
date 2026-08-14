@@ -1,35 +1,48 @@
 "use client";
+
 import Header from "@/components/layout/header";
 import NewChatButton from "@/features/conversations/components/new-chat-button";
 import WorkspaceConversationList from "@/features/conversations/components/workspace-conversation-list";
 
 import { useWorkspaceId } from "../hooks/use-workspace-id";
 import { useWorkspace } from "../hooks/use-workspace";
+import { useWorkspaces } from "../hooks/use-workspaces";
+import { workspaceRoutes } from "../lib/workspace-routes";
 
 import WorkspaceDocumentList from "./workspace-document-list";
 
 export default function WorkspaceSidebar() {
   const workspaceId = useWorkspaceId();
+
   const { data: workspace } = useWorkspace(workspaceId);
+  const { data: workspaces = [] } = useWorkspaces();
+
+  const defaultWorkspace = workspaces.find((workspace) => workspace.isDefault);
+
+  const homeHref = defaultWorkspace
+    ? workspaceRoutes.detail(defaultWorkspace.id)
+    : "/";
 
   return (
-    <div className="flex flex-col flex-1 gap-4 overflow-y-auto p-4 pt-0 max-w-90 bg-background-default">
-      <Header />
-      <h1 className="truncate text-base border-b pb-3 font-semibold">
-        {workspace?.title}
-      </h1>
+    <div className="flex flex-col flex-1 gap-4 overflow-hidden p-4 pt-0 max-w-90 bg-background-default">
+      <Header homeHref={homeHref} />
 
-      <section className="space-y-3">
-        <NewChatButton />
+      {!workspace?.isDefault && (
+        <h1 className="truncate text-base border-b pb-4 font-semibold">
+          {workspace?.title}
+        </h1>
+      )}
 
-        <div className="space-y-2">
+      {!workspace?.isDefault && (
+        <section className="space-y-2">
+          <NewChatButton />
           <h2 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
             Conversations
           </h2>
 
           <WorkspaceConversationList />
-        </div>
-      </section>
+        </section>
+      )}
 
       <WorkspaceDocumentList />
     </div>

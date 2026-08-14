@@ -1,6 +1,6 @@
 export const documentArtifactRoutes = {
-  summary(workspaceId: number, documentId: number) {
-    return `/workspaces/${workspaceId}/documents/${documentId}/summary`;
+  insights(workspaceId: number, documentId: number) {
+    return `/workspaces/${workspaceId}/documents/${documentId}/insights`;
   },
 
   conversationSummaries(workspaceId: number, documentId: number) {

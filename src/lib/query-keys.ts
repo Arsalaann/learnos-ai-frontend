@@ -23,8 +23,17 @@ export const queryKeys = {
   },
 
   documentArtifacts: {
-    summary: (workspaceId: number, documentId: number) =>
-      ["workspaces", workspaceId, "documents", documentId, "summary"] as const,
+    insights: (workspaceId: number, documentId: number) =>
+      ["workspaces", workspaceId, "documents", documentId, "insights"] as const,
+
+    insightsStatus: (workspaceId: number, documentId: number) =>
+      [
+        "workspaces",
+        workspaceId,
+        "documents",
+        documentId,
+        "insights-status",
+      ] as const,
 
     conversationSummaries: (workspaceId: number, documentId: number) =>
       [

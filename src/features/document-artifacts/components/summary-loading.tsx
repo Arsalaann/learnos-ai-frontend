@@ -1,26 +1,21 @@
-import { Skeleton } from "@/components/ui/skeleton";
+import { LoaderCircle, Sparkles } from "lucide-react";
 
 export default function SummaryLoading() {
   return (
-    <div className="mx-auto w-full max-w-3xl space-y-6 p-8">
-      <Skeleton className="h-9 w-48" />
+    <div className="flex flex-1 flex-col items-center justify-center">
+      <div className="flex max-w-md flex-col items-center text-center">
+        <div className="flex items-center gap-2">
+          <h2 className="text-lg font-semibold">
+            Generating document insights
+          </h2>
 
-      <div className="space-y-3">
-        <Skeleton className="h-4 w-full" />
-        <Skeleton className="h-4 w-[95%]" />
-        <Skeleton className="h-4 w-[92%]" />
-        <Skeleton className="h-4 w-[88%]" />
-      </div>
+          <LoaderCircle className="size-4 animate-spin text-muted-foreground" />
+        </div>
 
-      <div className="space-y-3">
-        <Skeleton className="h-4 w-full" />
-        <Skeleton className="h-4 w-[90%]" />
-        <Skeleton className="h-4 w-[94%]" />
-      </div>
-
-      <div className="space-y-3">
-        <Skeleton className="h-4 w-[96%]" />
-        <Skeleton className="h-4 w-[85%]" />
+        <p className="mt-2 text-sm leading-6 text-muted-foreground">
+          We're analyzing your document and creating a summary and topic
+          overview. This may take a moment.
+        </p>
       </div>
     </div>
   );

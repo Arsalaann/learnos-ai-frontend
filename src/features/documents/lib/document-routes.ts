@@ -18,4 +18,8 @@ export const documentRoutes = {
   summary(workspaceId: number, documentId: number) {
     return `${this.detail(workspaceId, documentId)}/summary`;
   },
+
+  reprocess(workspaceId: number, documentId: number) {
+    return `${this.detail(workspaceId, documentId)}/reprocess`;
+  },
 } as const;
