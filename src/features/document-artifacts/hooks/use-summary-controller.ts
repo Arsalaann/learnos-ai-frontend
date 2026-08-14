@@ -6,6 +6,9 @@ import { isNotFound } from "@/lib/http/is-not-found";
 
 import { useGenerateSummary } from "./use-generate-summary";
 import { useSummary } from "./use-summary";
+import { useConversationSummaries } from "./use-conversation-summaries";
+import { useGenerateConversationSummary } from "./use-generate-conversation-summary";
+import { useDeleteConversationSummary } from "./use-delete-conversation-summary";
 
 interface UseSummaryControllerProps {
   workspaceId: number;
@@ -16,16 +19,52 @@ export function useSummaryController({
   workspaceId,
   documentId,
 }: UseSummaryControllerProps) {
-  const hasAttemptedGeneration = useRef(false);
+  const hasAttemptedDocumentSummaryGeneration = useRef(false);
+
   const summaryQuery = useSummary(workspaceId, documentId);
+
+  const conversationSummariesQuery = useConversationSummaries(
+    workspaceId,
+    documentId,
+  );
+
   const generateSummaryMutation = useGenerateSummary();
 
-  const generate = useCallback(() => {
+  const generateConversationSummaryMutation = useGenerateConversationSummary();
+
+  const deleteConversationSummaryMutation = useDeleteConversationSummary();
+
+  const generateDocumentSummary = useCallback(() => {
     generateSummaryMutation.mutate({
       workspaceId,
       documentId,
     });
   }, [generateSummaryMutation, workspaceId, documentId]);
+
+  const generateConversationSummary = useCallback(() => {
+    generateConversationSummaryMutation.mutate({
+      workspaceId,
+      documentId,
+    });
+  }, [generateConversationSummaryMutation, workspaceId, documentId]);
+
+  const regenerateConversationSummary = useCallback(() => {
+    generateConversationSummaryMutation.mutate({
+      workspaceId,
+      documentId,
+    });
+  }, [generateConversationSummaryMutation, workspaceId, documentId]);
+
+  const deleteConversationSummary = useCallback(
+    (artifactId: number) => {
+      deleteConversationSummaryMutation.mutate({
+        workspaceId,
+        documentId,
+        artifactId,
+      });
+    },
+    [deleteConversationSummaryMutation, workspaceId, documentId],
+  );
 
   useEffect(() => {
     if (!summaryQuery.isError) {
@@ -36,31 +75,55 @@ export function useSummaryController({
       return;
     }
 
-    if (hasAttemptedGeneration.current) {
+    if (hasAttemptedDocumentSummaryGeneration.current) {
       return;
     }
 
-    hasAttemptedGeneration.current = true;
+    hasAttemptedDocumentSummaryGeneration.current = true;
 
-    generate();
-  }, [summaryQuery.isError, summaryQuery.error, generate]);
+    generateDocumentSummary();
+  }, [summaryQuery.isError, summaryQuery.error, generateDocumentSummary]);
 
   useEffect(() => {
-    hasAttemptedGeneration.current = false;
+    hasAttemptedDocumentSummaryGeneration.current = false;
   }, [documentId]);
 
   return {
-    artifact: summaryQuery.data,
+    documentSummary: summaryQuery.data,
 
-    isLoading: summaryQuery.isPending && !summaryQuery.data,
+    conversationSummaries: conversationSummariesQuery.data ?? [],
 
-    isGenerating: generateSummaryMutation.isPending,
+    isLoadingDocumentSummary: summaryQuery.isPending && !summaryQuery.data,
 
-    error:
+    isLoadingConversationSummaries: conversationSummariesQuery.isPending,
+
+    isGeneratingDocumentSummary: generateSummaryMutation.isPending,
+
+    isGeneratingConversationSummary:
+      generateConversationSummaryMutation.isPending,
+
+    isRegeneratingConversationSummary:
+      generateConversationSummaryMutation.isPending,
+
+    deletingArtifactId: deleteConversationSummaryMutation.isPending
+      ? (deleteConversationSummaryMutation.variables?.artifactId ?? null)
+      : null,
+
+    documentSummaryError:
       summaryQuery.isError && !isNotFound(summaryQuery.error)
         ? summaryQuery.error
         : null,
 
-    generate,
+    conversationSummariesError: conversationSummariesQuery.isError
+      ? conversationSummariesQuery.error
+      : null,
+
+    generateDocumentSummary,
+
+    generateConversationSummary,
+
+    regenerateConversationSummary,
+
+    deleteConversationSummary,
   };
 }

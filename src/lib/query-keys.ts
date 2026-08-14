@@ -25,6 +25,18 @@ export const queryKeys = {
   documentArtifacts: {
     summary: (workspaceId: number, documentId: number) =>
       ["workspaces", workspaceId, "documents", documentId, "summary"] as const,
+
+    conversationSummaries: (workspaceId: number, documentId: number) =>
+      [
+        "workspaces",
+        workspaceId,
+        "documents",
+        documentId,
+        "conversation-summaries",
+      ] as const,
+
+    quizzes: (workspaceId: number, documentId: number) =>
+      ["workspaces", workspaceId, "documents", documentId, "quizzes"] as const,
   },
 
   conversations: {

@@ -72,7 +72,7 @@ export default function MessageForm({ showContextSelector }: MessageFormProps) {
   return (
     <form
       onSubmit={form.handleSubmit(onSubmit)}
-      className="rounded-full border bg-background-default shadow-sm p-3 flex items-center"
+      className="rounded-full border bg-background-default p-3 py-2 flex items-center"
     >
       <div className="flex items-center gap-2 w-full">
         {showContextSelector && <DocumentContextSelector />}

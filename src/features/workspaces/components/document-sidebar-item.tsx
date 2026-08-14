@@ -25,7 +25,7 @@ export default function DocumentSidebarItem({
   return (
     <div
       className={cn(
-        " flex space-between items-center rounded-md pl-3 py-1 text-sm transition-colors whitespace-nowrap truncate",
+        " flex space-between items-center rounded-none pl-3 text-sm transition-colors whitespace-nowrap truncate",
         isActive
           ? "bg-muted-foreground/15 font-medium"
           : "hover:bg-muted-foreground/10",
@@ -33,7 +33,7 @@ export default function DocumentSidebarItem({
     >
       <Link
         href={documentRoutes.detail(workspaceId, document.id)}
-        className="flex-1 truncate text-sm font-medium"
+        className="flex-1 py-4 truncate text-sm font-medium"
       >
         {removeFileExtension(document.originalFilename)}
       </Link>

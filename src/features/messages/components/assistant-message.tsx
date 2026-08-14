@@ -19,22 +19,22 @@ export default function AssistantMessage({ content }: AssistantMessageProps) {
         components={{
           // --- Headings: Tight tracking, bold weights, generous top spacing ---
           h1: ({ children }) => (
-            <h1 className="mt-12 text-3xl font-extrabold tracking-tight text-foreground/95 first:mt-0">
+            <h1 className="mb-8 mt-12 text-3xl font-extrabold tracking-tight text-foreground/95 first:mt-0">
               {children}
             </h1>
           ),
           h2: ({ children }) => (
-            <h2 className="mt-12 text-2xl font-bold tracking-tight border-b border-border/50 text-foreground/95">
+            <h2 className="mt-5 mb-2 text-2xl font-bold tracking-tight border-b border-border/50 text-foreground/95">
               {children}
             </h2>
           ),
           h3: ({ children }) => (
-            <h3 className=" mt-10 text-xl font-semibold tracking-tight text-foreground/95">
+            <h3 className=" mt-5 mb-2 text-xl font-semibold tracking-tight text-foreground/95">
               {children}
             </h3>
           ),
           h4: ({ children }) => (
-            <h4 className="mt-8 text-lg font-semibold tracking-tight text-foreground/80">
+            <h4 className="mt-5 text-lg font-semibold tracking-tight text-foreground/80">
               {children}
             </h4>
           ),
@@ -135,7 +135,7 @@ export default function AssistantMessage({ content }: AssistantMessageProps) {
 
             if (!isInline) {
               return (
-                <div className="not-prose overflow-hidden relative group border rounded-md">
+                <div className="not-prose overflow-hidden relative group border rounded-none mb-8">
                   {/* Copy Button using shadcn Button and Lucide Icons */}
                   <Button
                     variant="secondary"
@@ -168,7 +168,7 @@ export default function AssistantMessage({ content }: AssistantMessageProps) {
             return (
               <code
                 {...props}
-                className="rounded-sm bg-muted px-1.5 py-0.5 font-mono text-sm font-medium text-primary ring-1 ring-inset ring-border/20"
+                className="rounded-none bg-background-default px-1.5 py-0.5 font-mono text-sm font-medium text-primary ring-1 ring-inset ring-border/20"
               >
                 {children}
               </code>

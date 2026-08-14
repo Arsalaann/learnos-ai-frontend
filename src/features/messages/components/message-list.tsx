@@ -69,9 +69,12 @@ export default function MessageList({
               id: -1,
               conversationId: messages[0]?.conversationId ?? 0,
               role: "assistant",
+              messageType: "text",
               content: {
                 text: streamingContent,
               },
+              artifactId: null,
+              artifact: null,
               createdAt: new Date().toISOString(),
               updatedAt: new Date().toISOString(),
             }}

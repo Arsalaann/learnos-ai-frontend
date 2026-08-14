@@ -8,25 +8,33 @@ interface ChatProps {
   workspaceId: number;
   conversationId: number | null;
   showContextSelector: boolean;
+  actions?: React.ReactNode;
+  interactionLocked?: boolean;
 }
 
 export default function Chat({
   workspaceId,
   conversationId,
   showContextSelector,
+  actions,
+  interactionLocked = false,
 }: ChatProps) {
   return (
     <ChatProvider workspaceId={workspaceId} conversationId={conversationId}>
       <div className="mx-auto flex min-h-screen w-full flex-col items-start">
         <ChatContent conversationId={conversationId} />
 
-        <div className="pb-6 sticky bottom-0 w-full z-9">
-          <MessageForm
-            workspaceId={workspaceId}
-            conversationId={conversationId}
-            showContextSelector={showContextSelector}
-          />
-        </div>
+        {!interactionLocked && (
+          <div className="sticky bottom-0 z-10 w-full pb-6">
+            {actions}
+
+            <MessageForm
+              workspaceId={workspaceId}
+              conversationId={conversationId}
+              showContextSelector={showContextSelector}
+            />
+          </div>
+        )}
       </div>
     </ChatProvider>
   );

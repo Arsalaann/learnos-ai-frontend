@@ -13,7 +13,7 @@ export default function WorkspaceSidebar() {
   const { data: workspace } = useWorkspace(workspaceId);
 
   return (
-    <div className="flex flex-col flex-1 gap-6 overflow-y-auto p-4 pt-0 max-w-90 bg-background-default">
+    <div className="flex flex-col flex-1 gap-4 overflow-y-auto p-4 pt-0 max-w-90 bg-background-default">
       <Header />
       <h1 className="truncate text-base border-b pb-3 font-semibold">
         {workspace?.title}

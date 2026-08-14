@@ -1,6 +1,6 @@
 "use client";
-import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 
+import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { useDocumentId } from "@/features/documents/hooks/use-document-id";
 
 import { useSummaryController } from "../hooks/use-summary-controller";
@@ -11,39 +11,58 @@ import SummaryPanel from "./summary-panel";
 
 export default function SummaryContainer() {
   const workspaceId = useWorkspaceId();
-
   const documentId = useDocumentId();
 
-  if (!documentId)
+  if (!documentId) {
     return (
-      <div className="flex flex-1 overflow-y-auto w-full justify-center items-center">
+      <div className="flex w-full flex-1 items-center justify-center overflow-y-auto">
         <p className="text-muted-foreground">No document selected.</p>
       </div>
     );
+  }
 
-  const { artifact, isLoading, isGenerating, error, generate } =
-    useSummaryController({
-      workspaceId,
-      documentId,
-    });
+  const {
+    documentSummary,
+    conversationSummaries,
+    isLoadingDocumentSummary,
+    isLoadingConversationSummaries,
+    isGeneratingDocumentSummary,
+    isGeneratingConversationSummary,
+    isRegeneratingConversationSummary,
+    documentSummaryError,
+    conversationSummariesError,
+    generateDocumentSummary,
+    generateConversationSummary,
+    regenerateConversationSummary,
+    deletingArtifactId,
+    deleteConversationSummary,
+  } = useSummaryController({
+    workspaceId,
+    documentId,
+  });
 
-  if (isLoading) {
+  if (isLoadingDocumentSummary) {
     return <SummaryLoading />;
   }
 
-  if (error) {
-    return <SummaryError onRetry={generate} />;
-  }
-
-  if (!artifact) {
-    return null;
+  if (documentSummaryError) {
+    return <SummaryError onRetry={generateDocumentSummary} />;
   }
 
   return (
     <SummaryPanel
-      artifact={artifact}
-      onRegenerate={generate}
-      isGenerating={isGenerating}
+      documentSummary={documentSummary}
+      conversationSummaries={conversationSummaries}
+      isLoadingConversationSummaries={isLoadingConversationSummaries}
+      isGeneratingDocumentSummary={isGeneratingDocumentSummary}
+      isGeneratingConversationSummary={isGeneratingConversationSummary}
+      isRegeneratingConversationSummary={isRegeneratingConversationSummary}
+      conversationSummariesError={conversationSummariesError}
+      deletingArtifactId={deletingArtifactId}
+      onRegenerateDocumentSummary={generateDocumentSummary}
+      onGenerateConversationSummary={generateConversationSummary}
+      onRegenerateConversationSummary={regenerateConversationSummary}
+      onDeleteConversationSummary={deleteConversationSummary}
     />
   );
 }

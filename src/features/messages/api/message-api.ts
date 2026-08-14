@@ -15,7 +15,22 @@ function mapMessage(message: MessageResponse): Message {
     id: message.id,
     conversationId: message.conversation_id,
     role: message.role,
+    messageType: message.message_type,
     content: message.content,
+    artifactId: message.artifact_id,
+    artifact: message.artifact
+      ? {
+          id: message.artifact.id,
+          documentId: message.artifact.document_id,
+          type: message.artifact.type,
+          content: message.artifact.content,
+          provider: message.artifact.provider,
+          model: message.artifact.model,
+          questionAttempts: message.artifact.question_attempts,
+          createdAt: message.artifact.created_at,
+          updatedAt: message.artifact.updated_at,
+        }
+      : null,
     createdAt: message.created_at,
     updatedAt: message.updated_at,
   };
@@ -126,6 +141,7 @@ export async function streamMessage(
     reader.releaseLock();
   }
 }
+
 export async function getMessages(conversationId: number): Promise<Message[]> {
   const response = await apiClient.get<MessageResponse[]>(
     messageRoutes.all(conversationId),
