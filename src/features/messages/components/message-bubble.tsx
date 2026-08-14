@@ -15,7 +15,7 @@ export default function MessageBubble({
         "rounded-none whitespace-pre-wrap wrap-break-word",
         isUser
           ? "bg-primary text-white py-3 px-3 my-6"
-          : "bg-transparent text-foreground",
+          : "w-full bg-transparent text-foreground",
       )}
     >
       {children}

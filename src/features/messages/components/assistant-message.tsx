@@ -91,27 +91,27 @@ export default function AssistantMessage({ content }: AssistantMessageProps) {
 
           // --- Tables: Premium card-like style with hover effects ---
           table: ({ children }) => (
-            <div className="my-2 overflow-hidden rounded-lg border border-border shadow-sm">
+            <div className="my-2 overflow-hidden border border-border shadow-sm">
               <table className="w-full text-sm">{children}</table>
             </div>
           ),
           thead: ({ children }) => (
-            <thead className="bg-muted/50 text-xs uppercase text-muted-foreground">
+            <thead className="bg-muted/50 text-xs uppercase text-foreground">
               {children}
             </thead>
           ),
           th: ({ children }) => (
-            <th className="border-b border-border px-5 py-3 text-left font-semibold">
+            <th className="border-b-2 border-border px-5 py-3 text-left font-semibold">
               {children}
             </th>
           ),
           td: ({ children }) => (
-            <td className="border-b border-border/50 px-5 py-3 align-top text-muted-foreground/90 last:border-b-0">
+            <td className="px-5 py-3 align-top text-muted-foreground/90 last:border-b-0">
               {children}
             </td>
           ),
           tr: ({ children }) => (
-            <tr className="transition-colors hover:bg-muted/30 last:border-b-0">
+            <tr className="border-b border-border/50  bg-background-default transition-colors last:border-b-0">
               {children}
             </tr>
           ),

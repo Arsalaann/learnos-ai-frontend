@@ -25,9 +25,8 @@ export default function DocumentChatActions({
       isLoading: isGeneratingSummary,
       onClick: onGenerateSummary,
       variant: "ghost" as const,
-      // Option 1: Classic Silver (Light enough to pop on dark bg)
       className:
-        "h-10 rounded-full bg-interactive text-background hover:opacity-80",
+        "h-10 rounded-full bg-interactive text-background dark:hover:bg-interactive/80 dark:hover:text-background hover:bg-interactive/80 ",
     },
     {
       id: "quiz",
@@ -36,9 +35,8 @@ export default function DocumentChatActions({
       isLoading: isGeneratingQuiz,
       onClick: onGenerateQuiz,
       variant: "ghost" as const,
-      // Option 2: Muted Bronze (Warm classic tone with contrast)
       className:
-        "h-10 rounded-full bg-interactive text-background hover:opacity-80",
+        "h-10 rounded-full bg-interactive text-background dark:hover:bg-interactive/80 dark:hover:text-background hover:bg-interactive/80",
     },
   ];
 

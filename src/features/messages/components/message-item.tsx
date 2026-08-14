@@ -17,9 +17,9 @@ export default function MessageItem({ message }: { message: Message }) {
         {isQuiz ? (
           <QuizMessage message={message} />
         ) : isUser ? (
-          <span className="whitespace-pre-wrap wrap-break-word">
+          <div className="whitespace-pre-wrap wrap-break-word">
             {message?.content?.text}
-          </span>
+          </div>
         ) : (
           <AssistantMessage content={message?.content?.text || ""} />
         )}

@@ -29,6 +29,8 @@ export default function UploadDocumentDialog() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
+  const [open, setOpen] = useState(false);
+
   useEffect(() => {
     if (searchParams.get("upload") !== "true") {
       return;
@@ -38,8 +40,6 @@ export default function UploadDocumentDialog() {
 
     router.replace(pathname);
   }, [pathname, router, searchParams]);
-
-  const [open, setOpen] = useState(false);
 
   function handleSuccess(document: Document) {
     setOpen(false);
@@ -69,10 +69,6 @@ export default function UploadDocumentDialog() {
           <DialogTitle className="text-2xl font-semibold tracking-[-0.02em]">
             Upload a document
           </DialogTitle>
-
-          <DialogDescription className="mt-3 max-w-sm text-sm leading-6 text-muted-foreground">
-            Bring a PDF into this workspace and start exploring it with AI.
-          </DialogDescription>
         </DialogHeader>
 
         <UploadDocumentForm onSuccess={handleSuccess} />

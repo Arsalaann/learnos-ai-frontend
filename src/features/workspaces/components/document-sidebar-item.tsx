@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 
 import { cn } from "@/lib/utils";
@@ -22,10 +23,14 @@ export default function DocumentSidebarItem({
   document,
   isActive,
 }: DocumentSidebarItemProps) {
+  const isPdf = document.contentType === "application/pdf";
+  const icon = isPdf ? "/pdf.png" : "/docx.png";
+  const iconAlt = isPdf ? "PDF" : "DOCX";
+
   return (
     <div
       className={cn(
-        " flex space-between items-center rounded-none pl-3 text-sm transition-colors whitespace-nowrap truncate",
+        "flex items-center space-between rounded-none pl-3 text-sm transition-colors whitespace-nowrap truncate",
         isActive
           ? "bg-muted-foreground/15 font-medium"
           : "hover:bg-muted-foreground/10",
@@ -33,10 +38,21 @@ export default function DocumentSidebarItem({
     >
       <Link
         href={documentRoutes.detail(workspaceId, document.id)}
-        className="flex-1 py-4 truncate text-sm font-medium"
+        className="flex min-w-0 flex-1 items-center gap-3 py-2 pr-2 text-sm font-medium"
       >
-        {removeFileExtension(document.originalFilename)}
+        <Image
+          src={icon}
+          alt={iconAlt}
+          width={28}
+          height={28}
+          className="shrink-0"
+        />
+
+        <span className="truncate max-w-65">
+          {removeFileExtension(document.originalFilename)}
+        </span>
       </Link>
+
       <DeleteDocumentDialog document={document} />
     </div>
   );
